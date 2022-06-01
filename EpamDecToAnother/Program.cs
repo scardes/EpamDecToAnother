@@ -11,7 +11,9 @@ namespace EpamDecToAnother
             string numInput1 = "";
             string numInput2 = "";
             string result = "";
-            int divide = 0;
+            string innerSymbol = "";
+            string innerResult = "";
+            int tempNum1 = 0;
             int oborot = 0;
 
             Console.Write("Введите десятичное число для преобразования, нажмите Enter: ");
@@ -35,29 +37,36 @@ namespace EpamDecToAnother
                 numInput2 = Console.ReadLine();
             }
 
-            //Пока что просто заглушка
-            Console.WriteLine("Число {0}, Основание для преобразования {1} ", cleanNum1, cleanNum2);
-            // if (cleanNum2 >= cleanNum1) { result += cleanNum1; } // Если число1 меньше чем число для преобразования нечего преобразовывать
-
-            //Нужен if чтобы входит в while
-            while (cleanNum1 >= cleanNum2)
+            if (cleanNum1 >= cleanNum2) // Проверяем нужно ли преобразование в новую систему
             {
-                oborot = cleanNum1 / cleanNum2;
-                divide = cleanNum1 % cleanNum2;
-                
-                // придумать while чтобы цикл был в цикле
-
-                //cleanNum1 = oborot;
-                //if (oborot >= cleanNum1)
-                //{
-                //    result = ()
-                //}
-                
-                cleanNum1 = oborot;
-                result = result + oborot + divide;
-
+                oborot = cleanNum1;
+                tempNum1 = cleanNum1;
+                while (oborot >= cleanNum2)
+                {
+                    
+                    if (oborot >= cleanNum2)
+                    {
+                        oborot = oborot / cleanNum2;
+                        innerSymbol += tempNum1 - (oborot * cleanNum2);
+                        innerResult = innerSymbol + innerResult;
+                        tempNum1 = oborot;
+                        
+                        if (cleanNum2 > oborot)
+                        {
+                            result = oborot + innerResult;
+                            innerSymbol = "";
+                        }
+                        else
+                        {
+                            result = innerResult;
+                            innerSymbol = "";
+                        }
+                    }
+                }
             }
+            else { result += cleanNum1; } //Если преобразование не нужно. Так как Число для преобразования меньше чем основание новой системы
 
+            Console.WriteLine("________________________");
             Console.WriteLine("Итог преобразования {0}", result);
 
             
