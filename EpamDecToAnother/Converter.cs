@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+/// <summary>
+/// Take a DEC number(cleanNum1) and return a result in a new base (cleanNum2) system
+/// </summary>
 namespace EpamDecToAnother
 {
     class Converter
@@ -10,20 +13,27 @@ namespace EpamDecToAnother
         {
             string result = "";
             string innerSymbol = "";
-            int tempNum1;
-            int oborot;
+            int tempNum1; 
+            int turnover;
 
-            if (cleanNum1 >= cleanNum2) // Проверяем нужно ли преобразование в новую систему
+            // If we need made a convertation 
+            if (cleanNum1 >= cleanNum2) 
             {
-                oborot = cleanNum1;
-                tempNum1 = cleanNum1; // tempNum1 - ввел чтобы не мешал основному значению cleanNum1 (который нельзя менять, потому что проверяем с cleanNum2 в начале входа в условие
+                // Make dublicate of cleanNum1 (because we are not allowed to change (cleanNum1) which is compared with (cleanNum2))
+                tempNum1 = cleanNum1; 
+                turnover = cleanNum1;
 
-                while (oborot >= cleanNum2) // Начинаем преобразование
+                // Start converting
+                while (turnover >= cleanNum2)
                 {
-                    oborot = oborot / cleanNum2;
-                    innerSymbol += tempNum1 - (oborot * cleanNum2); // Находим символ -> это остаток от деления на cleanNum2 например: 5 - (2 * 2) = 1 (результат и есть это символ)
+                    turnover = turnover / cleanNum2;
 
-                    switch (innerSymbol) // Если символ больше 10 переходим на буквы от a до j
+                    // Find a innerSymbol - this is the remainder of cleanNum2 
+                    // For example: cleanNum1 = 5; cleanNum2 = 2; (turnover = 5/2 = 2). Then innerSymbol = 5 - (2 * 2) = 1 
+                    innerSymbol += tempNum1 - (turnover * cleanNum2);
+
+                    // If innerSymbol => 10. We need use a letters from a to j
+                    switch (innerSymbol) 
                     {
                         case "10":
                             innerSymbol = "a";
@@ -57,17 +67,24 @@ namespace EpamDecToAnother
                             break;
                     }
 
-                    result = innerSymbol + result; // Записываем символ в конец строки временного результата
-                    innerSymbol = ""; // После записи обнуляем временный сборщик символов
-                    tempNum1 = oborot;
+                    // Write the innerSymbol at the end of the temporary result. And reset innerSymbol
+                    result = innerSymbol + result; 
+                    innerSymbol = ""; 
+                    tempNum1 = turnover;
 
-                    if (cleanNum2 > oborot) //Когда все обороты завершены записывам значение в Результат
+                    // When all turnovers are complete write the value to the (result)
+                    if (cleanNum2 > turnover) 
                     {
-                        result = oborot + result; // Это конечный результат
+                        result = turnover + result;
                     }
                 }
             }
-            else { result += cleanNum1; } //Если преобразование не нужно. Так как Число для преобразования меньше чем основание новой системы
+
+            //If we DON`T need convertation (Cause DEC number smaller then Base of new system)
+            else 
+            { 
+                result += cleanNum1; 
+            } 
 
             return result;
         }
