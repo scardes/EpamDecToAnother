@@ -13,14 +13,14 @@ namespace EpamDecToAnother
         {
             string result = "";
             string innerSymbol = "";
-            int tempNum1; 
+            int tempNumOrigin; 
             int turnover;
 
             // If we need made a convertation 
             if (cleanNumOrigin >= cleanNumBase) 
             {
                 // Make dublicate of cleanNum1 (because we are not allowed to change (cleanNum1) which is compared with (cleanNum2))
-                tempNum1 = cleanNumOrigin; 
+                tempNumOrigin = cleanNumOrigin; 
                 turnover = cleanNumOrigin;
 
                 // Start converting
@@ -30,7 +30,7 @@ namespace EpamDecToAnother
 
                     // Find a innerSymbol - this is the remainder of cleanNum2 
                     // For example: cleanNum1 = 5; cleanNum2 = 2; (turnover = 5/2 = 2). Then innerSymbol = 5 - (2 * 2) = 1 
-                    innerSymbol += tempNum1 - (turnover * cleanNumBase);
+                    innerSymbol += tempNumOrigin - (turnover * cleanNumBase);
 
                     // If innerSymbol => 10. We need use a letters from a to j
                     switch (innerSymbol) 
@@ -70,7 +70,7 @@ namespace EpamDecToAnother
                     // Write the innerSymbol at the end of the temporary result. And reset innerSymbol
                     result = innerSymbol + result; 
                     innerSymbol = ""; 
-                    tempNum1 = turnover;
+                    tempNumOrigin = turnover;
 
                     // When all turnovers are complete write the value to the (result)
                     if (cleanNumBase > turnover) 
