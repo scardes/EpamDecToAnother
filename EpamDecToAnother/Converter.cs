@@ -7,9 +7,9 @@ using System.Text;
 /// </summary>
 namespace EpamDecToAnother
 {
-    class Converter
+    public class Converter
     {
-        public string ConvertDecTo (int cleanNum1, int cleanNum2)
+        public string ConvertDecTo (int cleanNumOrigin, int cleanNumBase)
         {
             string result = "";
             string innerSymbol = "";
@@ -17,20 +17,20 @@ namespace EpamDecToAnother
             int turnover;
 
             // If we need made a convertation 
-            if (cleanNum1 >= cleanNum2) 
+            if (cleanNumOrigin >= cleanNumBase) 
             {
                 // Make dublicate of cleanNum1 (because we are not allowed to change (cleanNum1) which is compared with (cleanNum2))
-                tempNum1 = cleanNum1; 
-                turnover = cleanNum1;
+                tempNum1 = cleanNumOrigin; 
+                turnover = cleanNumOrigin;
 
                 // Start converting
-                while (turnover >= cleanNum2)
+                while (turnover >= cleanNumBase)
                 {
-                    turnover = turnover / cleanNum2;
+                    turnover = turnover / cleanNumBase;
 
                     // Find a innerSymbol - this is the remainder of cleanNum2 
                     // For example: cleanNum1 = 5; cleanNum2 = 2; (turnover = 5/2 = 2). Then innerSymbol = 5 - (2 * 2) = 1 
-                    innerSymbol += tempNum1 - (turnover * cleanNum2);
+                    innerSymbol += tempNum1 - (turnover * cleanNumBase);
 
                     // If innerSymbol => 10. We need use a letters from a to j
                     switch (innerSymbol) 
@@ -73,7 +73,7 @@ namespace EpamDecToAnother
                     tempNum1 = turnover;
 
                     // When all turnovers are complete write the value to the (result)
-                    if (cleanNum2 > turnover) 
+                    if (cleanNumBase > turnover) 
                     {
                         result = turnover + result;
                     }
@@ -83,7 +83,7 @@ namespace EpamDecToAnother
             //If we DON`T need convertation (Cause DEC number smaller then Base of new system)
             else 
             { 
-                result += cleanNum1; 
+                result += cleanNumOrigin; 
             } 
 
             return result;

@@ -6,56 +6,56 @@
 /// </summary>
 namespace EpamDecToAnother
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             bool endApp = false;
 
             // Repeat program, until input key "n" to exit.
             while (!endApp) 
             {
-                int cleanNum1;
-                int cleanNum2;
+                int cleanNumOrigin;
+                int cleanNumBase;
                 
                 Console.WriteLine("Convert the DEC number to the number with the base of the new number system (from 2 to 20)\n");
 
                 // Ask the user to type the DEC number.
                 Console.Write("Enter a DEC number for converting: ");
-                string numInput1 = Console.ReadLine();
+                string numInputOrigin = Console.ReadLine();
 
-                while (!int.TryParse(numInput1, out cleanNum1))
+                while (!int.TryParse(numInputOrigin, out cleanNumOrigin))
                 {
                     Console.Write("Please enter correct a DEC number for converting: ");
-                    numInput1 = Console.ReadLine();
+                    numInputOrigin = Console.ReadLine();
                 }
 
                 // Ask the user to type the base of the new number system.
                 Console.Write("Enter base of the new number system (from 2 to 20): ");
-                string numInput2 = Console.ReadLine();
+                string numInputBase = Console.ReadLine();
                 
-                while (!int.TryParse(numInput2, out cleanNum2))  
+                while (!int.TryParse(numInputBase, out cleanNumBase))  
                 {
                     Console.Write("Please enter correct base of the new number system (from 2 to 20): ");
-                    numInput2 = Console.ReadLine();
+                    numInputBase = Console.ReadLine();
                 }
 
                 // Base of new system has a limits
-                while ((cleanNum2 <= 1) || (cleanNum2 > 20))  
+                while ((cleanNumBase <= 1) || (cleanNumBase > 20))  
                 {
                     Console.Write("Please enter correct base of the new number system. Range need be in [2 - 20] : ");
-                    numInput2 = Console.ReadLine();
+                    numInputBase = Console.ReadLine();
 
                     //If input string is not a number
-                    while (!int.TryParse(numInput2, out cleanNum2)) 
+                    while (!int.TryParse(numInputBase, out cleanNumBase)) 
                     {
                         Console.Write("Please enter correct base of the new number system (from 2 to 20): ");
-                        numInput2 = Console.ReadLine();
+                        numInputBase = Console.ReadLine();
                     }
                 }
 
                 Converter converter = new Converter();
-                string result = converter.ConvertDecTo(cleanNum1, cleanNum2);
+                string result = converter.ConvertDecTo(cleanNumOrigin, cleanNumBase);
 
                 Console.WriteLine("\nConvert result is: {0}", result);
                 Console.WriteLine("------------------------\n");
